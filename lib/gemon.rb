@@ -12,8 +12,9 @@ module Gemon
 
     get '/appstatus.json' do
       dir = File.expand_path("..",Dir.pwd)
-      #gemfile = dir + "/fixtures/Gemfile.lock"
-      #lockfile = Bundler::LockfileParser.new(Bundler.read_file(gemfile))
+      dir = Dir.pwd
+      gemfile = dir + "/Gemfile.lock"
+      lockfile = Bundler::LockfileParser.new(Bundler.read_file(gemfile))
       content_type :json
       {
         :ruby => `ruby -v`.split[1],
@@ -23,14 +24,14 @@ module Gemon
           release: `uname -r`.strip,
           nodename: `uname -n`.strip
         },
-        :directory => dir
+        :directory => dir,
+        :gemfile => get_gems(lockfile)
       }.to_json
     end
 
     private
 
     def get_gems(lockfile)
-      #:gemfile => get_gems(lockfile)
       a = []
       lockfile.dependencies.each do |d|
         spec = lockfile.specs.select { |s| s.name == d.name }
