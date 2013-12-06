@@ -4,6 +4,12 @@ require "bundler"
 require "json"
 
 module Gemon
+  class << self
+
+    attr_accessor :api_key
+
+  end
+
   class Server < Sinatra::Base
 
     dir = File.dirname(File.expand_path(__FILE__))
@@ -11,11 +17,18 @@ module Gemon
     set :static, true
 
     get '/' do
+      content_type :json
+
+      if !Gemon.api_key.nil?
+        if params[:key] != Gemon.api_key
+          return {:error => "Invalid Key"}.to_json
+        end
+      end
+
       dir = File.expand_path("..",Dir.pwd)
       dir = Dir.pwd
       gemfile = dir + "/Gemfile.lock"
       lockfile = Bundler::LockfileParser.new(Bundler.read_file(gemfile))
-      content_type :json
       {
         :ruby => ruby_version,
         :os => {
