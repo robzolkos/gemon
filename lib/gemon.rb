@@ -10,7 +10,7 @@ module Gemon
 
     set :static, true
 
-    get '/appstatus.json' do
+    get '/' do
       dir = File.expand_path("..",Dir.pwd)
       dir = Dir.pwd
       gemfile = dir + "/Gemfile.lock"
@@ -35,7 +35,9 @@ module Gemon
       a = []
       lockfile.dependencies.each do |d|
         spec = lockfile.specs.select { |s| s.name == d.name }
-        a << {name: d.name, requirement: d.requirement, locked: spec[0].version}
+        version = ""
+        version = spec[0].version if !spec[0].nil?
+        a << {name: d.name, requirement: d.requirement, locked: version}
       end
       a
     end
