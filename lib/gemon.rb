@@ -17,7 +17,7 @@ module Gemon
       lockfile = Bundler::LockfileParser.new(Bundler.read_file(gemfile))
       content_type :json
       {
-        :ruby => `ruby -v`.split[1],
+        :ruby => ruby_version,
         :os => {
           name: `uname -s`.strip,
           platform: `uname -m`.strip,
@@ -30,6 +30,14 @@ module Gemon
     end
 
     private
+
+    def ruby_version
+      begin
+        return `ruby -v`.split[1]
+      rescue
+        return "Error: Ruby not found."
+      end
+    end
 
     def get_gems(lockfile)
       a = []
