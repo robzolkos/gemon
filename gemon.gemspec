@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Gemon::VERSION
   spec.authors       = ["Rob Zolkos"]
   spec.email         = ["robzolkos@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Report your production Rails server settings.}
+  spec.description   = %q{Gemon provides a small sinatra server that gets mounted in your Rails app.  It then reports system and app settings.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
