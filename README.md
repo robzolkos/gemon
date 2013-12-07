@@ -24,12 +24,12 @@ In the above example the json data will be available on /appstatus in your Rails
 
 ## Security
 
-To secure your genom endpoint, create an initializer in your Rails app eg `config/initializers/genom.rb`
+To secure your gemon endpoint, create an initializer in your Rails app eg `config/initializers/gemon.rb`
 
-Add a Genom.api_key to config/initializer file.
+Add a Gemon.api_key to config/initializer file.
 
 ```
-Genom.api_key = "123456" # random string
+Gemon.api_key = "123456" # random string
 ```
 
 Then when calling the endpoint add the key to the request.
